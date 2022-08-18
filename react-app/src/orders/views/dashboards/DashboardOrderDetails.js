@@ -356,6 +356,8 @@ export const DashboardOrderDetails = () => {
                     Order #<strong> {orderdetails?.order?.id}</strong>
                   </h2>
                 </Col>
+                </Row>
+                <Row className='mb-3'>
                 {!(username === "staff") && (
                   <Col md='auto'>
                     <Link
@@ -396,7 +398,22 @@ export const DashboardOrderDetails = () => {
                         Generate Invoice
                       </Button>
                     </Col>
-                    <Col>
+
+                    <Col md='auto'>
+                      <Link
+                        to={{
+                          pathname: `/profile/user/${orderdetails?.order?.id}/orderdetails/invoice-slip`,
+                          state: orderdetails,
+                        }}
+                        target='_blank'
+                      >
+                        <Button variant='secondary' className='mb-3'>
+                          Print Invoice
+                        </Button>
+                      </Link>
+                    </Col>
+
+                    <Col md='auto'>
                     <Link
                     to={{
                       pathname: `/profile/user/${orderdetails?.order?.id}/orderdetails/packing-slip`,

@@ -163,6 +163,9 @@ export const TruckLoadForm = () => {
     alert ("Your Emails have been sent!")
   };
 
+  //allow to click into order
+  //once you start checking ordders have buttons appear at top, one for notify out for delivery and one to print packing slips
+  //third button to archive order or send to closed orders, this would require a seperate page to show these orders and have functionality to re-open or unarchive order. 
 
   return (
     <>

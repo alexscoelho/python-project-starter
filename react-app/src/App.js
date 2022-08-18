@@ -23,6 +23,7 @@ import { ProductionLabel } from "./orders/components/ProductionLabel";
 import { ProductLabel } from "./orders/components/ProductLabel";
 import { TruckLoadForm } from "./orders/components/TruckLoadForm";
 import { PackingSlip } from "./orders/components/PackingSlip";
+import { InvoiceSlip } from "./orders/components/InvoiceSlip";
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -98,6 +99,9 @@ function App() {
           </ProtectedRoute>
           <ProtectedRoute exact path='/profile/user/:id/:profileoption/packing-slip'>
             <PackingSlip />
+          </ProtectedRoute>
+          <ProtectedRoute exact path='/profile/user/:id/:profileoption/invoice-slip'>
+            <InvoiceSlip />
           </ProtectedRoute>
           <ProtectedRoute
             exact

@@ -6,7 +6,7 @@ import { useRef } from "react";
 import { useParams } from "react-router-dom";
 
 
-export const PackingSlip = () => {
+export const InvoiceSlip = () => {
 
     let {id: orderId} = useParams();
 
@@ -59,7 +59,7 @@ export const PackingSlip = () => {
           height="100"
           
         />
-        <h3 ><strong>packing</strong>slip</h3>
+        <h3 ><strong>invoice #</strong> {orderdetails?.order?.invoiceNumber}</h3>
             </Col>
         </Row>
        
@@ -71,20 +71,23 @@ export const PackingSlip = () => {
                 {orderdetails?.order?.customer?.address2}<br></br>
                 {orderdetails?.order?.customer?.city},{orderdetails?.order?.customer?.state} {orderdetails?.order?.customer?.zipCode}                </p>
             </Col>
-            <Col className="text-end">
-            <h5>DATE</h5><p>{new Date(
+            <Col className=" text-md-left mx-5">
+                <p>ISSUE DATE</p><p><strong>{new Date(
                       orderdetails?.order?.createdAt
                     ).toLocaleDateString("en-us", {
                       year: "numeric",
                       month: "short",
                       day: "numeric",
-                    })} </p>
+                    })} </strong></p>
+            </Col>
+            <Col>
+                <p>INVOICE NUMBER</p><p>{orderdetails?.order?.invoiceNumber}</p>
+            </Col>
+            <Col>    
+                <p>PO/JOB NAME</p><p><strong>{orderdetails?.order?.poName}</strong></p>
             </Col>
             <Col className="text-end">
-              <h5>INVOICE</h5><p>{orderdetails?.order?.invoiceNumber}</p>
-            </Col>
-            <Col className="text-end text-md-right mx-5">             
-                <h5>PO/JOB NAME</h5><p>{orderdetails?.order?.poName}</p>
+              <p>AMOUNT DUE</p><h1><strong>$ {orderdetails?.order?.totalAmount}</strong></h1>
             </Col>
         </Row>
 
@@ -94,7 +97,8 @@ export const PackingSlip = () => {
                     <tr>  
                         <th className="col-4" scope='col'>Product</th>
                         <th className="col-2 text-center" scope='col'>Qty</th>
-                        <th className="col-4" scope='col'>Notes</th>
+                        <th className="col-2 text-center" scope='col'>Amount</th>
+                        {/* <th className="col-4" scope='col'>Notes</th> */}
                     </tr>
                 </thead>
 
@@ -103,11 +107,21 @@ export const PackingSlip = () => {
                         <tr key={orderItem.id}>
                         <td>{orderItem?.name}</td>
                         <td className="text-center">{orderdetails.order.orderItems[index]?.quantity}</td>
-                        <td>{orderdetails.order.orderItems[index]?.notes}</td>
+                        <td className="text-right">$ {orderItem.price}</td>
+                        {/* <td>{orderdetails.order.orderItems[index]?.notes}</td> */}
                         </tr>
                     ))}
+                     <tr>
+                        <td colSpan={2}><strong>TOTAL</strong></td>
+                        <td className="text-right"><strong>$ {orderdetails?.order?.totalAmount}</strong></td>
+                     </tr>
                 </tbody>
             </Table>    
+            <Table bordered responsive='md'>
+              <tbody className="">
+               
+              </tbody>
+            </Table>
         </Row>
    
         <Row className="slip-footer justify-content-center">
