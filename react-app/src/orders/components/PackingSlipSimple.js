@@ -3,11 +3,8 @@ import { Button, Row, Col, Table, Container } from "react-bootstrap";
 import { useState } from "react";
 import { useReactToPrint } from "react-to-print";
 import { useRef } from "react";
-import { useParams } from "react-router-dom";
 
-export const PackingSlip = ({ id }) => {
-  const orderId = useParams()?.id;
-
+export const PackingSlipSimple = ({ id }) => {
   const componentRef = useRef();
 
   const handlePrint = useReactToPrint({
@@ -35,7 +32,7 @@ export const PackingSlip = ({ id }) => {
   };
 
   useEffect(() => {
-    fetchOrder(orderId);
+    fetchOrder(id);
   }, []);
 
   return (
