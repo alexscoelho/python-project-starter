@@ -12,28 +12,13 @@ import filterFactory, {
   selectFilter,
   Comparator,
 } from "react-bootstrap-table2-filter";
-import { useReactToPrint } from "react-to-print";
-import {
-  Document,
-  BlobProvider,
-  pdf,
-  Page,
-  Text,
-  View,
-  StyleSheet,
-} from "@react-pdf/renderer";
 import { useRef } from "react";
 import emailjs from "@emailjs/browser";
-import { PackingSlip } from "./PackingSlip";
-import { PackingSlipSimple } from "./PackingSlipSimple";
+import { useReactToPrint } from "react-to-print";
 
 export const TruckLoadForm = () => {
   const componentRef = useRef();
   const [selectedRows, setSelectedRows] = useState([]);
-
-  const handlePrint = useReactToPrint({
-    content: () => componentRef.current,
-  });
 
   const [data, setData] = useState([]);
   useEffect(() => {
@@ -115,6 +100,7 @@ export const TruckLoadForm = () => {
   const handleOnSelect = (row, isSelect, rowIndex, e) => {
     if (isSelect) {
       setSelectedRows([...selectedRows, row]);
+      window.open(`profile/user/${row.id}/orderdetails/packing-slip`, "_blank");
     } else {
       const newSelectedRows = selectedRows.filter(
         (currentRow) => currentRow.id !== row.id
@@ -163,48 +149,9 @@ export const TruckLoadForm = () => {
     alert("Your Emails have been sent!");
   };
 
-  const PackingSlipPdf = (id) => {
-    return (
-      <Document>
-        <PackingSlipSimple id={id} />
-      </Document>
-    );
-  };
-
-  const styles = StyleSheet.create({
-    page: { backgroundColor: "tomato" },
-    section: { color: "white", textAlign: "center", margin: 30 },
+  const handlePrint = useReactToPrint({
+    content: () => componentRef.current,
   });
-
-  const MyComp = () => {
-    return (
-      <Document>
-        <Page size='A4' style={styles.page}>
-          <View style={styles.section}>
-            <Text>Section #1</Text>
-          </View>
-        </Page>
-      </Document>
-    );
-  };
-
-  const handlePrintPackingSlips = async () => {
-    selectedRows.forEach(
-      (row) => {
-        let alink = document.createElement("a");
-        // let pdfcomponent = <PackingSlipPdf id={row.id} />;
-        alink.href = pdf(<MyComp />)
-          .toBlob()
-          .then((pdf) => {
-            console.log(pdf);
-            alink.download = `packingslip${row.id}.pdf`;
-            alink.click();
-          });
-      }
-
-      // window.open(`profile/user/${row.id}/orderdetails/packing-slip`, "_blank")
-    );
-  };
 
   return (
     <>
@@ -216,15 +163,6 @@ export const TruckLoadForm = () => {
               <Col>
                 <Button onClick={sendEmail} variant='success' className='mb-3'>
                   Notify Out for Delivery
-                </Button>
-              </Col>
-              <Col>
-                <Button
-                  onClick={handlePrintPackingSlips}
-                  variant='success'
-                  className='mb-3'
-                >
-                  Print Packing Slips
                 </Button>
               </Col>
             </Row>
@@ -272,7 +210,7 @@ export const TruckLoadForm = () => {
       <Container>
         <Col className='mb-5 text-center'>
           <Button
-            onClick={handlePrintPackingSlips}
+            onClick={handlePrint}
             variant='primary'
             type='submit'
             className='printer-btn shadow col-6'

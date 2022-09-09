@@ -244,18 +244,15 @@ export const DashboardOrderDetails = () => {
       .catch((error) => console.log(error));
   };
 
-  
-
   const createInvoice = ({ order, products }) => {
-
     const discountline = {
-      DetailType: "DiscountLineDetail",   
-      // Amount: orderdetails.order.discount, 
-      Amount:"0",
-      Description: "Less discount", 
+      DetailType: "DiscountLineDetail",
+      // Amount: orderdetails.order.discount,
+      Amount: "0",
+      Description: "Less discount",
       DiscountLineDetail: {
-          PercentBased: false, 
-      }
+        PercentBased: false,
+      },
     };
 
     const lineItems = products.map((product, index) => {
@@ -270,7 +267,7 @@ export const DashboardOrderDetails = () => {
             name: product.name,
           },
         },
-      }     
+      };
     });
 
     const payload = {
@@ -397,16 +394,16 @@ export const DashboardOrderDetails = () => {
                       </Button>
                     </Col>
                     <Col>
-                    <Link
-                    to={{
-                      pathname: `/profile/user/${orderdetails?.order?.id}/orderdetails/packing-slip`,
-                      state: orderdetails,
-                    }}
-                    target='_blank'
-                  >
-                    <Button variant='secondary' className='mb-3'>
-                    Print Packing Slip
-                    </Button>
+                      <Link
+                        to={{
+                          pathname: `/profile/user/${orderdetails?.order?.id}/orderdetails/packing-slip`,
+                          state: orderdetails,
+                        }}
+                        target='_blank'
+                      >
+                        <Button variant='secondary' className='mb-3'>
+                          Print Packing Slip
+                        </Button>
                       </Link>
                     </Col>
                   </>
@@ -494,7 +491,7 @@ export const DashboardOrderDetails = () => {
                       }
                     />
                   </Form.Group>
-                  
+
                   <Form.Group as={Col} controlId='formDiscount'>
                     <Form.Label>Discount</Form.Label>
                     <Form.Control
@@ -506,7 +503,7 @@ export const DashboardOrderDetails = () => {
                     <Form.Label>Amount </Form.Label>
                     <Form.Control
                       type='text'
-                      value= {`$ ${orderdetails?.order?.totalAmount}`}
+                      value={`$ ${orderdetails?.order?.totalAmount}`}
                     />
                   </Form.Group>
                 </Row>
