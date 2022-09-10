@@ -3,11 +3,8 @@ import { Button, Row, Col, Table, Container } from "react-bootstrap";
 import { useState } from "react";
 import { useReactToPrint } from "react-to-print";
 import { useRef } from "react";
-import { useParams } from "react-router-dom";
 
-export const PackingSlip = ({ id }) => {
-  const orderId = useParams()?.id;
-
+export const PackingSlipSimple = ({ id }) => {
   const componentRef = useRef();
 
   const handlePrint = useReactToPrint({
@@ -35,7 +32,7 @@ export const PackingSlip = ({ id }) => {
   };
 
   useEffect(() => {
-    fetchOrder(orderId);
+    fetchOrder(id);
   }, []);
 
   return (
@@ -78,7 +75,9 @@ export const PackingSlip = ({ id }) => {
               {orderdetails?.order?.customer?.zipCode}{" "}
             </p>
           </Col>
-          <Col className='text-end'>
+          <Col className='text-end text-md-right mx-5'>
+            <h5>INVOICE</h5>
+            <p>{orderdetails?.order?.invoiceNumber}</p>
             <h5>DATE</h5>
             <p>
               {new Date(orderdetails?.order?.createdAt).toLocaleDateString(
@@ -90,14 +89,6 @@ export const PackingSlip = ({ id }) => {
                 }
               )}{" "}
             </p>
-          </Col>
-          <Col className='text-end'>
-            <h5>INVOICE</h5>
-            <p>{orderdetails?.order?.invoiceNumber}</p>
-          </Col>
-          <Col className='text-end text-md-right mx-5'>
-            <h5>PO/JOB NAME</h5>
-            <p>{orderdetails?.order?.poName}</p>
           </Col>
         </Row>
 

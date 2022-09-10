@@ -163,6 +163,10 @@ def create_customer():
     response = requests.post(url, headers=headers, data=payload)
     return response.json()
 
+# @auth_routes.route('/save-pdf', methods=['POST'])
+# def save_pdf():
+    
+#     return response.json()
 
       
 
